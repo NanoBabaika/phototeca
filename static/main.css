@@ -1,0 +1,1640 @@
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .login-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .logo {
+            text-align: center;
+            /* margin-bottom: 30px; */
+        }
+
+        .logo h1 {
+            color: #333;
+            font-size: 28px;
+            margin-bottom: 5px;
+        }
+
+        .logo p {
+            color: #666;
+            font-size: 14px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 500;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 2px solid #e1e5e9;
+            border-radius: 8px;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus {
+            border-color: #667eea;
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 12px;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .links {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        .links a {
+            color: #667eea;
+            text-decoration: none;
+            margin: 0 10px;
+            transition: color 0.3s ease;
+        }
+
+        .links a:hover {
+            color: #764ba2;
+            text-decoration: underline;
+        }
+
+        .error-message {
+            background: #ffeaea;
+            color: #d63031;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid #d63031;
+        } 
+
+        .success-message {
+            background: #eaffea;
+            color: #00b894;
+            padding: 10px;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            text-align: center;
+            border-left: 4px solid #00b894;
+        }
+ 
+        .download__files {
+            display: flex;
+            flex-direction: column-reverse;
+            align-items: center;
+        }
+        
+
+
+
+
+
+
+
+
+        /* _________________________Стили фотера и хедера_________________________________________  */
+
+
+
+
+        /* Основные стили */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Arial', sans-serif;
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    min-height: 100vh;
+    color: #333;
+}
+
+/* Основной контейнер */
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+
+.header__container {
+    padding-left: 45px;
+    padding-right: 45px;
+}
+
+/* Header */
+.header {
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    width: 100%;
+}
+
+.header-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px 0;
+}
+
+.logo-link {
+    text-decoration: none;
+}
+
+.logo h1 {
+    color: #667eea;
+    font-size: 24px;
+}
+
+.nav-list {
+    display: flex;
+    list-style: none;
+    gap: 20px;
+}
+
+.nav-link {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background: #667eea;
+    color: white;
+    transform: translateY(-2px);
+}
+
+.nav-link.logout {
+    background: #e74c3c;
+    color: white;
+}
+
+.nav-link.logout:hover {
+    background: #c0392b;
+}
+
+.user-welcome {
+    color: #666;
+    font-size: 14px;
+}
+
+/* Main content */
+.main {
+    padding: 20px 0;
+    min-height: calc(100vh - 140px);
+}
+
+/* Footer */
+.footer {
+    background: #2c3e50;
+    color: white;
+    padding: 30px 0;
+    margin-top: auto;
+    width: 100%;
+}
+
+.footer-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.footer-info p {
+    margin-bottom: 5px;
+    color: #bdc3c7;
+}
+
+.footer-links {
+    display: flex;
+    gap: 20px;
+}
+
+.footer-link {
+    color: #3498db;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-link:hover {
+    color: #2980b9;
+}
+
+.footer-stats {
+    text-align: right;
+    color: #bdc3c7;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.footer-stats p {
+    margin-bottom: 5px;
+}
+
+.dashboard {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.actions {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* .btn-primary {
+    margin-bottom: 20px;
+} */
+
+  
+/* Адаптивность */
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        gap: 15px;
+    }
+    
+    .nav-list {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+    
+    .footer-content {
+        flex-direction: column;
+        gap: 20px;
+        text-align: center;
+    }
+}
+
+
+
+/* _____________________________Стили галереи ______________________________________________________ */
+
+
+  .gallery-container {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+  }
+  .gallery-title {
+      text-align: center;
+      color: #333;
+      margin-bottom: 30px;
+  }
+  .photos-grid {
+      /* display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+      gap: 20px; */
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 20px 0;
+  } 
+
+.photo-img {
+    width: 100%;
+    height: 300px;
+    object-fit: cover;
+    display: flex;
+    flex-direction: column;
+    padding: 15px;
+}
+.photo-card {
+    background: white;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    position: relative;
+    padding: 12px;
+    margin-bottom: 15px;
+    margin-right: 15px;
+}
+
+.photo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+}
+
+.photo-image-container {
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.7);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    text-decoration: none;
+    color: white;
+}
+
+.photo-image-container:hover .photo-overlay {
+    opacity: 1;
+}
+
+.view-full {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.photo-actions {
+    display: flex;
+    padding: 15px;
+    border-top: 1px solid #f0f0f0;
+    gap: 15px;
+}
+
+.like-btn, .comments-link {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    color: #666;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.like-btn:hover {
+    color: #e74c3c;
+}
+
+.comments-link:hover {
+    color: #3498db;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Стили для страницы singlePhoto */
+.single-photo-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.breadcrumbs {
+    margin-bottom: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.breadcrumbs a {
+    color: #3498db;
+    text-decoration: none;
+}
+
+.photo-fullview {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.full-photo {
+    max-width: 100%;
+    max-height: 70vh;
+    border-radius: 8px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+}
+
+.photo-meta {
+    margin-bottom: 20px;
+    padding: 20px;
+    background: #f8f9fa;
+    border-radius: 8px;
+}
+
+.photo-title {
+    margin: 0 0 10px 0;
+    color: #333;
+}
+
+.photo-details {
+    display: flex;
+    gap: 20px;
+    font-size: 14px;
+    color: #666;
+}
+
+.photo-actions-full {
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.like-btn-full {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    background: #fff;
+    border: 2px solid #e74c3c;
+    border-radius: 25px;
+    color: #e74c3c;
+    cursor: pointer;
+    font-size: 16px;
+    transition: all 0.3s ease;
+}
+
+.like-btn-full:hover {
+    background: #e74c3c;
+    color: white;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+/* * ____________________________________Стили профиля___________________________________________________ */ */
+
+    .profile-container {
+         max-width: 800px;
+         margin: 0 auto;
+         background: white;
+         border-radius: 20px;
+         box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+         overflow: hidden;
+     }
+    .profile-header {
+         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         padding: 40px;
+         text-align: center;
+         color: white;
+     }
+    .avatar {
+         width: 120px;
+         height: 120px;
+         /* border-radius: 50%; */
+         border: 5px solid white;
+         margin: 0 auto 20px;
+         background: rgba(255,255,255,0.2);
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         font-size: 48px;
+     }
+    .user-name {
+         font-size: 28px;
+         font-weight: bold;
+         margin-bottom: 5px;
+     }
+    .user-email {
+         font-size: 16px;
+         opacity: 0.9;
+     }
+    .profile-content {
+         padding: 40px;
+     }
+    .info-section {
+         margin-bottom: 40px;
+     }
+    .section-title {
+         font-size: 20px;
+         color: #333;
+         margin-bottom: 20px;
+         padding-bottom: 10px;
+         border-bottom: 2px solid #f0f0f0;
+         display: flex;
+         align-items: center;
+         gap: 10px;
+     }
+
+    .info-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+         gap: 20px;
+     }
+
+    .info-card {
+         background: #f8f9fa;
+         padding: 20px;
+         border-radius: 10px;
+         border-left: 4px solid #4facfe;
+    }
+
+    .info-label {
+         font-size: 12px;
+         color: #666;
+         text-transform: uppercase;
+         margin-bottom: 5px;
+     }
+
+    
+    .info-value {
+         font-size: 16px;
+         color: #333;
+         font-weight: 500;
+     }
+    .empty-value {
+         color: #999;
+         font-style: italic;
+     }
+    .stats-section {
+         background: #f8f9fa;
+         padding: 30px;
+         border-radius: 15px;
+         margin-bottom: 30px;
+    }
+
+    .stats-grid {
+         display: grid;
+         grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+         gap: 20px;
+         text-align: center;
+    }
+    .stat-item {
+         padding: 20px;
+     }
+    .stat-number {
+         font-size: 36px;
+         font-weight: bold;
+         color: #4facfe;
+         margin-bottom: 5px;
+     }
+    .stat-label {
+         font-size: 14px;
+         color: #666;
+     }
+    .action-buttons {
+         display: flex;
+         gap: 15px;
+         justify-content: center;
+         flex-wrap: wrap;
+     }
+    .btn {
+         padding: 12px 30px;
+         border: none;
+         border-radius: 25px;
+         font-size: 16px;
+         font-weight: 600;
+         cursor: pointer;
+         transition: all 0.3s ease;
+         text-decoration: none;
+         display: inline-flex;
+         align-items: center;
+         gap: 8px;
+     }
+    .btn-primary--upload {
+         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         color: white;
+         max-width: 425px;
+         height: 50px;
+     
+     }
+    .btn-secondary-upload {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+        max-width: 425px;
+        height: 50px;
+        margin-bottom: 20px;
+     }
+    .btn-success {
+         background: #28a745;
+         color: white;
+     }
+    .btn:hover {
+         transform: translateY(-2px);
+         box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+     }
+    .quick-actions {
+         background: #f8f9fa;
+         padding: 30px;
+         border-radius: 15px;
+         text-align: center;
+     }
+    .actions-title {
+         margin-bottom: 20px;
+         color: #333;
+     }
+
+
+
+
+
+/* ________________________________________РЕДАКТИРОВАНИЕ/УДАЛЕНИЕ ПРОФИЛЯ_________________________________________ */
+
+.profile-edit-container {
+    width: 80%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+ 
+.avatar-section {
+    display: flex;
+    align-items: flex-start;
+    gap: 30px;
+    margin-bottom: 30px;
+    padding: 25px;
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+}
+
+.current-avatar {
+    max-height: 200px;
+    max-height: 200px;
+    flex-shrink: 0;
+}
+
+#avatar-preview {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary-color);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    transition: all 0.3s ease;
+}
+
+#avatar-preview:hover {
+    transform: scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.2);
+}
+
+.avatar-upload {
+     padding: 5px;
+    color: #5f5b5b;
+    border-radius: 6px;
+    flex: 1;
+}
+
+.avatar__img {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.avatar__img--profile {
+    width: 200px;
+    height: 108px;
+    object-fit: cover;
+}
+
+.delete-avatar {
+    margin-top: 20px;
+    background: #e53e3e;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+
+.avatar__img-- {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+}
+
+.avatar-upload label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+    color: var(--text-color);
+    font-size: 14px;
+}
+
+.avatar-upload input[type="file"] {
+    width: 100%;
+    padding: 10px;
+    border: 2px dashed var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    margin-bottom: 8px;
+    transition: all 0.3s ease;
+}
+
+.avatar-upload input[type="file"]:hover {
+    border-color: var(--primary-color);
+    background: rgba(74, 144, 226, 0.05);
+}
+
+.avatar-upload small {
+    color: var(--muted-text);
+    font-size: 12px;
+    display: block;
+}
+
+.edit-profile--btn {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    color: white;
+    width: 125px;
+    height: 50px;
+    margin-bottom: 20px;
+    border-radius: 6px;
+    border-color: transparent;
+    margin-right: 30px;
+    color: #fff;
+    cursor: pointer;
+}
+
+.edit-profile--btn:hover {
+    background: linear-gradient(135deg, #1089f2 0%, #32e8f1 100%);
+    color: #fff;
+    transition: .5s;
+}
+
+.form-actions {
+    padding: 10px;
+}
+
+
+
+/* Стили для формы загрузки файла */
+input[type="file"]::file-selector-button {
+    background: var(--primary-color);
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 6px;
+    margin-right: 12px;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+input[type="file"]::file-selector-button:hover {
+    background: var(--primary-dark);
+}
+
+.danger-zone {
+    margin-top: 40px;
+    padding: 25px;
+    background: #fff5f5;
+    border: 1px solid #fed7d7;
+    border-radius: 12px;
+    border-left: 4px solid #e53e3e;
+}
+
+.danger-zone h3 {
+    color: #c53030;
+    margin-bottom: 20px;
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.danger-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.danger-text h4 {
+    color: #9b2c2c;
+    margin-bottom: 5px;
+    font-size: 16px;
+}
+
+.danger-text p {
+    color: #742a2a;
+    font-size: 14px;
+    margin: 0;
+    line-height: 1.4;
+}
+
+.btn-danger {
+    background: #e53e3e;
+    color: white;
+    padding: 12px 24px;
+    border: none;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    white-space: nowrap;
+    flex-shrink: 0;
+}
+
+.btn-danger:hover {
+    background: #c53030;
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(229, 62, 62, 0.3);
+}
+
+.btn-danger:active {
+    transform: translateY(0);
+}
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .danger-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .btn-danger {
+        align-self: stretch;
+        text-align: center;
+    }
+}
+
+
+
+
+
+
+
+
+
+/* __________________________________________Стилизация списка пользователей_____________________________________________ */
+
+
+
+ .users-container {
+     max-width: 1200px;
+     margin: 0 auto;
+ }
+ .page-header {
+     text-align: center;
+     color: rgb(10, 8, 8);
+     margin-bottom: 40px;
+ }
+ .page-title {
+     font-size: 36px;
+     margin-bottom: 10px;
+ }
+ .page-subtitle {
+     font-size: 18px;
+     opacity: 0.9;
+ }
+ .users-grid {
+     display: grid;
+     grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+     gap: 25px;
+     padding: 20px 0;
+ }
+ .user-card {
+     background: white;
+     border-radius: 15px;
+     padding: 25px;
+     text-align: center;
+     box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+     transition: all 0.3s ease;
+     cursor: pointer;
+     text-decoration: none;
+     color: inherit;
+     display: block;
+ }
+ .user-card:hover {
+     transform: translateY(-10px);
+     box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+ }
+ .user-avatar {
+     width: 100px;
+     height: 100px;
+     border-radius: 50%;
+     margin: 0 auto 15px;
+     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+     display: flex;
+     align-items: center;
+     justify-content: center;
+     font-size: 36px;
+     color: white;
+     border: 4px solid white;
+     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+ }
+ .user-avatar img {
+     width: 100%;
+     height: 100%;
+     border-radius: 50%;
+     object-fit: cover;
+ }
+ .user-name {
+     font-size: 20px;
+     font-weight: bold;
+     color: #333;
+     margin-bottom: 8px;
+ }
+ .user-city {
+     color: #666;
+     margin-bottom: 15px;
+     font-size: 14px;
+ }
+ .user-stats {
+     display: flex;
+     justify-content: center;
+     gap: 15px;
+     margin-top: 15px;
+     padding-top: 15px;
+     border-top: 1px solid #f0f0f0;
+ }
+ .stat {
+     text-align: center;
+ }
+ .stat-number {
+     font-size: 16px;
+     font-weight: bold;
+     color: #4facfe;
+ }
+ .stat-label {
+     font-size: 12px;
+     color: #999;
+ }
+ .empty-state {
+     text-align: center;
+     padding: 60px 20px;
+     color: rgb(8, 8, 8);
+ }
+ .empty-icon {
+     font-size: 64px;
+     margin-bottom: 20px;
+ }
+ .search-section {
+     background: white;
+     padding: 20px;
+     border-radius: 15px;
+     margin-bottom: 30px;
+     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+ }
+ .search-form {
+     display: flex;
+     gap: 15px;
+     max-width: 500px;
+     margin: 0 auto;
+ }
+ .search-input {
+     flex: 1;
+     padding: 12px 20px;
+     border: 2px solid #e0e0e0;
+     border-radius: 25px;
+     font-size: 16px;
+     outline: none;
+     transition: border-color 0.3s;
+ }
+ .search-input:focus {
+     border-color: #4facfe;
+ }
+ .search-btn {
+     padding: 12px 25px;
+     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+     color: white;
+     border: none;
+     border-radius: 25px;
+     cursor: pointer;
+     font-size: 16px;
+     transition: transform 0.3s;
+ }
+ .search-btn:hover {
+     transform: scale(1.05);
+ }
+ .filters {
+     display: flex;
+     justify-content: center;
+     gap: 10px;
+     margin-top: 15px;
+     flex-wrap: wrap;
+ }
+ .filter-btn {
+     padding: 8px 16px;
+     border: 2px solid #4facfe;
+     background: transparent;
+     color: #4facfe;
+     border-radius: 20px;
+     cursor: pointer;
+     transition: all 0.3s;
+     font-size: 14px;
+ }
+
+ .filter-btn.active,
+ .filter-btn:hover {
+     background: #4facfe;
+     color: white;
+ }
+
+ @media (max-width: 768px) {
+     .users-grid {
+         grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+         gap: 20px;
+     }
+     
+     .search-form {
+         flex-direction: column;
+     }
+     
+     .user-card {
+         padding: 20px;
+     }
+ }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* _____________________________Стили для пагинации______________________________________________ */
+
+/* Стили для пагинации */
+.pagination-container {
+    margin: 30px 0;
+    text-align: center;
+}
+
+.pagination-nav {
+    display: inline-block;
+}
+
+.pagination {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0 0 15px 0;
+    border-radius: 8px;
+    background: #f8f9fa;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.page-item {
+    margin: 0;
+}
+
+.page-link {
+    display: block;
+    padding: 12px 18px;
+    text-decoration: none;
+    color: #495057;
+    background: white;
+    border: 1px solid #dee2e6;
+    border-right: none;
+    transition: all 0.3s ease;
+    font-weight: 500;
+}
+
+.page-item:first-child .page-link {
+    border-top-left-radius: 8px;
+    border-bottom-left-radius: 8px;
+}
+
+.page-item:last-child .page-link {
+    border-right: 1px solid #dee2e6;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+}
+
+.page-link:hover {
+    background: #e9ecef;
+    color: #007bff;
+    transform: translateY(-1px);
+}
+
+.page-item.active .page-link {
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 2px 5px rgba(0,123,255,0.3);
+}
+
+.page-item.disabled .page-link {
+    color: #6c757d;
+    background: #f8f9fa;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.page-item.disabled .page-link:hover {
+    background: #f8f9fa;
+    color: #6c757d;
+    transform: none;
+}
+
+.pagination-info {
+    font-size: 14px;
+    color: #6c757d;
+    font-style: italic;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .page-link {
+        padding: 10px 14px;
+        font-size: 14px;
+    }
+    
+    .pagination-info {
+        font-size: 12px;
+    }
+}
+
+@media (max-width: 480px) {
+    .page-link {
+        padding: 8px 10px;
+        font-size: 12px;
+    }
+    
+    .page-item .page-link span[aria-hidden="true"] {
+        font-size: 14px;
+    }
+}
+ 
+
+
+
+
+
+
+
+
+/* __________________________Стили для комментариев_____________________________________ */
+.comments-section {
+    background: white;
+    border-radius: 12px;
+    padding: 25px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.comments-title {
+    margin: 0 0 20px 0;
+    color: #333;
+    border-bottom: 2px solid #f0f0f0;
+    padding-bottom: 10px;
+}
+
+.comments-list {
+    margin-bottom: 25px;
+}
+
+.comment-item {
+    padding: 15px 0;
+    border-bottom: 1px solid #f0f0f0;
+}
+
+.comment-item:last-child {
+    border-bottom: none;
+}
+
+.comment-header {
+    display: flex;
+    justify-content: between;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.comment-author {
+    font-weight: 600;
+    color: #333;
+    margin-right: 15px;
+}
+
+.comment-date {
+    color: #999;
+    font-size: 12px;
+}
+
+.comment-text {
+    color: #555;
+    line-height: 1.5;
+}
+
+.no-comments {
+    text-align: center;
+    color: #999;
+    font-style: italic;
+    padding: 30px;
+}
+
+.comment-form {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.comment-textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: 14px;
+}
+
+.comment-textarea:focus {
+    outline: none;
+    border-color: #3498db;
+    box-shadow: 0 0 0 2px rgba(52,152,219,0.2);
+}
+
+.submit-comment-btn {
+    background: linear-gradient(135deg, #3498db, #2980b9);
+    color: white;
+    border: none;
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.submit-comment-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(52,152,219,0.3);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* ___________________________________Стили для страницы сброса пароля_______________________________________________ */
+
+
+/* Контейнеры */
+.password-recovery-container,
+.password-reset-container {
+    max-width: 500px;
+    margin: 50px auto;
+    padding: 20px;
+}
+
+/* Карточки */
+.recovery-card,
+.reset-card {
+    background: white;
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+}
+
+/* Заголовки */
+.recovery-title,
+.reset-title {
+    text-align: center;
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 28px;
+}
+
+.recovery-subtitle,
+.reset-subtitle {
+    text-align: center;
+    color: #666;
+    margin-bottom: 30px;
+    line-height: 1.5;
+}
+
+/* Формы */
+.recovery-form,
+.reset-form {
+    margin-bottom: 30px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-label {
+    display: block;
+    margin-bottom: 8px;
+    color: #333;
+    font-weight: 500;
+}
+
+.form-input {
+    width: 100%;
+    padding: 12px 15px;
+    border: 2px solid #ddd;
+    border-radius: 8px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.form-input:focus {
+    outline: none;
+    border-color: #4CAF50;
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.form-hint {
+    font-size: 12px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Кнопка */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    background: linear-gradient(135deg, #4CAF50, #45a049);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(76, 175, 80, 0.3);
+}
+
+.submit-btn:active {
+    transform: translateY(0);
+}
+
+/* Ссылка назад */
+.back-to-login {
+    text-align: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+}
+
+.back-link {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.back-link:hover {
+    text-decoration: underline;
+}
+
+/* Блок информации */
+.recovery-info {
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.recovery-info h3 {
+    color: #333;
+    margin-bottom: 15px;
+    font-size: 18px;
+}
+
+.steps-list {
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.6;
+}
+
+.steps-list li {
+    margin-bottom: 10px;
+}
+
+/* Требования к паролю */
+.password-requirements {
+    background: #f0f7ff;
+    padding: 15px;
+    border-radius: 8px;
+    margin-top: 20px;
+    font-size: 14px;
+}
+
+.password-requirements h4 {
+    color: #333;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.password-requirements ul {
+    padding-left: 20px;
+    color: #555;
+    line-height: 1.5;
+}
+
+.password-requirements li {
+    margin-bottom: 5px;
+}
+
+/* Адаптивность */
+@media (max-width: 600px) {
+    .password-recovery-container,
+    .password-reset-container {
+        margin: 20px auto;
+        padding: 10px;
+    }
+    
+    .recovery-card,
+    .reset-card {
+        padding: 20px;
+    }
+    
+    .recovery-title,
+    .reset-title {
+        font-size: 24px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Адаптивность для мобильных */
+@media (max-width: 768px) {
+    .avatar-section {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 20px;
+    }
+    
+    .avatar-upload {
+        width: 100%;
+    }
+    
+    #avatar-preview {
+        width: 100px;
+        height: 100px;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+     
+    @media (max-width: 768px) {
+         .profile-container {
+             margin: 10px;
+         }
+         
+         .profile-header {
+             padding: 30px 20px;
+         }
+         
+         .profile-content {
+             padding: 20px;
+         }
+         
+         .action-buttons {
+             flex-direction: column;
+         }
+         
+         .btn {
+             width: 100%;
+             justify-content: center;
+         }
+    }   
+
+
+
+
+
+
+/* _______________________Утилитарные классы_____________________________ */
+
+.mt-20 {
+    margin-top: 20px;
+}
+
+.mt-40 {
+    margin-top: 40px;
+}
