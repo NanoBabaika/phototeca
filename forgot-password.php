@@ -7,6 +7,9 @@
     if(isset($_POST['submit'])) {
         echo "нажата кнопка отправить ссылку";
         p($_POST);
+
+        $user = sendEmailForResetPass($_POST['email']);
+
     }
 
 

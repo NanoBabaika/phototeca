@@ -474,7 +474,7 @@
             R::trash($like);
             echo "Лайк успешно удален!";
         }
-    }
+}
 
     function totalLikes($photoId) {
         $totalLikes = R::count('likes', 'photo_id = ?', [$photoId]);
@@ -548,7 +548,19 @@
     }
 
 
+    function sendEmailForResetPass($userEmail) {
+        // Запрос  проверяем есть ли почта в БД
+        $user = R::findOne('users', 'email = ?', [$userEmail]);
+        
+        if ($user) {
+            $_SESSION['success'][] = "Письмо с восстановлением пароля отправлено на эл. почту пользователя"; 
+        } else {
+            $_SESSION['errors'][] = "Ошибка! Пользователя с такой почтой не существует.";
+            return;
+        }
 
+        return $user; 
+    }
 
 
 
