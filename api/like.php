@@ -1,4 +1,17 @@
 <?php
+error_log("Текущий DIR: " . __DIR__);
+error_log("Документ рут: " . $_SERVER['DOCUMENT_ROOT']);
+
+// Проверяем существование файлов
+$db_path = __DIR__ . '/../config/database.php';
+$func_path = __DIR__ . '/../helpers/functions.php';
+
+error_log("Путь к database.php: $db_path - существует: " . (file_exists($db_path) ? 'да' : 'нет'));
+error_log("Путь к functions.php: $func_path - существует: " . (file_exists($func_path) ? 'да' : 'нет'));
+
+require_once $db_path;
+// ... остальной код
+
 // Очищаем буферы
 while (ob_get_level()) {
     ob_end_clean();
@@ -7,6 +20,7 @@ while (ob_get_level()) {
 // Устанавливаем заголовок JSON
 header('Content-Type: application/json');
 
+ 
 // Подключаем зависимости
 require_once __DIR__ . '/../config/database.php';
 require_once __DIR__ . '/../helpers/functions.php';

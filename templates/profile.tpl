@@ -5,7 +5,7 @@
                 <?php if (!empty($user->avatar)) : ?>
                     <img class="avatar__img--profile" src="./uploads/avatars/<?= $user->avatar ?>" alt="Аватарка" />
                 <?php else : ?>
-                    <img class="avatar__img--profile" src="./uploads/avatars/01.jpeg" alt="Аватарка" />
+                    <img class="avatar__img--profile" src="./uploads/avatars/01.jpeg" alt="Здесь могла быть Ваша аватарка" />
                 <?php endif; ?>
             </div>
             <h1 class="user-name"><?= htmlspecialchars($user['name'] ?? 'Пользователь') ?></h1>

@@ -427,7 +427,12 @@ body {
     color: #3498db;
 }
 
-
+.empty-gallery {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
 
 
 
@@ -536,7 +541,7 @@ body {
          overflow: hidden;
      }
     .profile-header {
-         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         background: #667eea;
          padding: 40px;
          text-align: center;
          color: white;
@@ -655,21 +660,21 @@ body {
          gap: 8px;
      }
     .btn-primary--upload {
-         background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+         background: #667eea;
          color: white;
          max-width: 425px;
          height: 50px;
      
      }
     .btn-secondary-upload {
-        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        background: #667eea;
         color: white;
         max-width: 425px;
         height: 50px;
         margin-bottom: 20px;
      }
     .btn-success {
-         background: #28a745;
+         background: #667eea;
          color: white;
      }
     .btn:hover {
@@ -707,8 +712,8 @@ body {
     gap: 30px;
     margin-bottom: 30px;
     padding: 25px;
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
-
+    background: #667eea;
+    color: #fff;
     border-radius: 12px;
     border: 1px solid var(--border-color);
 }
@@ -751,6 +756,7 @@ body {
     width: 200px;
     height: 108px;
     object-fit: cover;
+    font-size: 18px;
 }
 
 .delete-avatar {
@@ -804,7 +810,7 @@ body {
 }
 
 .edit-profile--btn {
-    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+    background: #667eea;
     color: white;
     width: 125px;
     height: 50px;
@@ -973,7 +979,7 @@ input[type="file"]::file-selector-button:hover {
      height: 100px;
      border-radius: 50%;
      margin: 0 auto 15px;
-     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+     background: #fff;
      display: flex;
      align-items: center;
      justify-content: center;
@@ -1055,7 +1061,7 @@ input[type="file"]::file-selector-button:hover {
  }
  .search-btn {
      padding: 12px 25px;
-     background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+     background: #667eea;
      color: white;
      border: none;
      border-radius: 25px;
@@ -1319,7 +1325,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .submit-comment-btn {
-    background: linear-gradient(135deg, #3498db, #2980b9);
+    background: #667eea;
     color: white;
     border: none;
     padding: 12px 25px;
@@ -1431,10 +1437,10 @@ input[type="file"]::file-selector-button:hover {
 }
 
 /* Кнопка */
-.submit-btn {
+.submit-btn-forgot {
     width: 100%;
     padding: 14px;
-    background: linear-gradient(135deg, #4CAF50, #45a049);
+    background: #667eea;
     color: white;
     border: none;
     border-radius: 8px;
@@ -1462,7 +1468,7 @@ input[type="file"]::file-selector-button:hover {
 }
 
 .back-link {
-    color: #4CAF50;
+    color: #667eea;
     text-decoration: none;
     font-weight: 500;
 }
@@ -1630,6 +1636,11 @@ input[type="file"]::file-selector-button:hover {
 
 
 /* _______________________Утилитарные классы_____________________________ */
+
+.mb-20 {
+    margin-bottom: 20px;
+}
+
 
 .mt-20 {
     margin-top: 20px;

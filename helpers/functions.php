@@ -1,9 +1,8 @@
 <?php
-    require_once './lib/PHPMailer/src/PHPMailer.php';
-    require_once './lib/PHPMailer/src/SMTP.php';
-    require_once './lib/PHPMailer/src/Exception.php';
-    require_once './config/constants.php';
-
+    require_once __DIR__ . '/../lib/PHPMailer/src/PHPMailer.php';
+    require_once __DIR__ . '/../lib/PHPMailer/src/SMTP.php';
+    require_once __DIR__ . '/../lib/PHPMailer/src/Exception.php';
+    require_once __DIR__ . '/../config/constants.php';
     use PHPMailer\PHPMailer\PHPMailer;
     use PHPMailer\PHPMailer\SMTP;
     use PHPMailer\PHPMailer\Exception;
@@ -505,6 +504,14 @@
             
     function showLikesAndCommentsCounts($photoIds) {
         // Подготавливаем плейсхолдеры для IN()
+            // Если массив пустой, возвращаем пустые данные
+        if (empty($photoIds)) {
+            return [
+                'likes' => [],
+                'comments' => []
+            ];
+        }
+
         $placeholders = implode(',', array_fill(0, count($photoIds), '?'));
 
         // Получаем количество комментариев для каждой фотографии
@@ -545,6 +552,10 @@
 
     // функция проверки лайкал ли пользователь фото
     function likeExamination ($userId) {
+        // Проверяем, есть ли пользователь
+        if (!$userId) {
+            return [];
+        }
         
         // мы должны получить id фото которые лайкнул пользователь 
         $likes = R::getAll(
@@ -629,20 +640,7 @@
         // Удаляем старые токены для этого пользователя
         R::exec("DELETE FROM password_reset WHERE user_id = ?", [$user->id]);
         
-        // // Сохраняем в таблицу password_reset
-        // $passwordReset = R::dispense('password_reset');
-        // $passwordReset->user_id = $user->id;
-        // $passwordReset->token = $token;
-        // // $passwordReset->created_at = $created_at;
-        // $passwordReset->expires_at = $expires_at;
-        
-        // try {
-        //     R::store($passwordReset);
-        // } catch (Exception $e) {
-        //     error_log("Ошибка сохранения токена: " . $e->getMessage());
-        //     return false;
-        // }
-
+   
         
         $sql = "INSERT INTO password_reset (user_id, token, created_at, expires_at) 
             VALUES (?, ?, ?, ?)";
@@ -661,11 +659,7 @@
         // Ссылка для восстановления
         $resetLink = $protocol . $host . "/reset-password.php?token=" . $token;
 
-
-        // Ссылка для восстановления
-        // $resetLink = HOST . "reset-password.php?token=" . $token;
-        // $resetLink = "http://localhost/your-project/reset-password.php?token=" . $token;
-
+ 
         
         // HTML шаблон письма
         $html = '
@@ -676,7 +670,7 @@
             <style>
                 body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
                 .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
-                .button { display: inline-block; padding: 12px 24px; background: #4CAF50; color: white; 
+                .button { display: inline-block; padding: 12px 24px; background: #667eea; color: #fff; 
                         text-decoration: none; border-radius: 5px; font-weight: bold; }
                 .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; 
                         font-size: 12px; color: #777; }
@@ -710,7 +704,7 @@
         </html>';
         
         // Отправляем через PHPMailer
-        return sendEmail($email, 'Восстановление пароля в PhotoGallery', $html);
+        return sendEmail($email, 'Восстановление пароля в ФОТОТЕКА', $html);
     }
 
 

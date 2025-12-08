@@ -29,7 +29,7 @@
                 </div>
             </div>
 
-            <button type="submit" class="submit-btn" name="submit">
+            <button type="submit" class="submit-btn-forgot" name="submit">
                 📧 Отправить ссылку
             </button>
 
