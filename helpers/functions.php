@@ -1,4 +1,12 @@
 <?php
+    require_once './lib/PHPMailer/src/PHPMailer.php';
+    require_once './lib/PHPMailer/src/SMTP.php';
+    require_once './lib/PHPMailer/src/Exception.php';
+    require_once './config/constants.php';
+
+    use PHPMailer\PHPMailer\PHPMailer;
+    use PHPMailer\PHPMailer\SMTP;
+    use PHPMailer\PHPMailer\Exception;
 
 
     function p($var) {
@@ -547,22 +555,163 @@
         return $likes; 
     }
 
-
-    function sendEmailForResetPass($userEmail) {
-        // Запрос  проверяем есть ли почта в БД
-        $user = R::findOne('users', 'email = ?', [$userEmail]);
+    // отправка письма
+    function sendEmail($to, $subject, $message) {
+        try { 
         
-        if ($user) {
-            $_SESSION['success'][] = "Письмо с восстановлением пароля отправлено на эл. почту пользователя"; 
-        } else {
-            $_SESSION['errors'][] = "Ошибка! Пользователя с такой почтой не существует.";
-            return;
+            // Или если установлен вручную
+            require_once __DIR__ . '/../lib/PHPMailer/src/PHPMailer.php';
+            require_once __DIR__ . '/../lib/PHPMailer/src/SMTP.php';
+            require_once __DIR__ . '/../lib/PHPMailer/src/Exception.php';
+            
+            // Создаем экземпляр
+            $mail = new PHPMailer(true);
+            
+            // Настройки сервера
+            $mail->isSMTP();
+            $mail->Host = SMTP_HOST;
+            $mail->SMTPAuth = SMTP_AUTH;
+            $mail->Username = SMTP_USERNAME;
+            $mail->Password = SMTP_PASSWORD;
+            $mail->SMTPSecure = SMTP_SECURE;
+            $mail->Port = SMTP_PORT;
+ 
+            
+            // Кодировка
+            $mail->CharSet = 'UTF-8';
+            
+            // От кого
+            $mail->setFrom(SMTP_USERNAME, SITE_NAME);
+            $mail->addReplyTo(SMTP_USERNAME, SITE_NAME);
+            
+            // Кому
+            $mail->addAddress($to);
+            
+            // Тема письма
+            $mail->Subject = $subject;
+            
+            // HTML тело письма
+            $mail->isHTML(true);
+            $mail->Body = $message;
+            
+            // Альтернативное текстовое тело
+            $mail->AltBody = strip_tags($message);
+            
+            // Отправляем
+            if ($mail->send()) {
+                return true;
+            } else {
+                error_log('Ошибка отправки письма: ' . $mail->ErrorInfo);
+                return false;
+            }
+            
+        } catch (Exception $e) {
+            error_log('PHPMailer Exception: ' . $e->getMessage());
+            return false;
+        }
+    }
+    
+    // формирование письма и ссылки
+    function sendPasswordRecoveryEmail($email) {
+         $user = R::findOne('users', 'email = ?', [$email]);
+        
+        if (!$user) { 
+           return false;
         }
 
-        return $user; 
+        $user_id = $user->id;
+                 
+        // Генерируем токен
+        $token = bin2hex(random_bytes(50));
+        $created_at = date('Y-m-d H:i:s');
+        $expires_at = date('Y-m-d H:i:s', time() + 3600); // 1 час
+        
+        // Удаляем старые токены для этого пользователя
+        R::exec("DELETE FROM password_reset WHERE user_id = ?", [$user->id]);
+        
+        // // Сохраняем в таблицу password_reset
+        // $passwordReset = R::dispense('password_reset');
+        // $passwordReset->user_id = $user->id;
+        // $passwordReset->token = $token;
+        // // $passwordReset->created_at = $created_at;
+        // $passwordReset->expires_at = $expires_at;
+        
+        // try {
+        //     R::store($passwordReset);
+        // } catch (Exception $e) {
+        //     error_log("Ошибка сохранения токена: " . $e->getMessage());
+        //     return false;
+        // }
+
+        
+        $sql = "INSERT INTO password_reset (user_id, token, created_at, expires_at) 
+            VALUES (?, ?, ?, ?)";
+        
+        try {
+            R::exec($sql, [$user_id, $token, $created_at, $expires_at]);
+        } catch (Exception $e) {
+            error_log("Ошибка сохранения токена (SQL): " . $e->getMessage());
+            return false;
+        }
+
+        // Динамически определяем домен
+        $protocol = isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? 'https://' : 'http://';
+        $host = $_SERVER['HTTP_HOST'];
+        
+        // Ссылка для восстановления
+        $resetLink = $protocol . $host . "/reset-password.php?token=" . $token;
+
+
+        // Ссылка для восстановления
+        // $resetLink = HOST . "reset-password.php?token=" . $token;
+        // $resetLink = "http://localhost/your-project/reset-password.php?token=" . $token;
+
+        
+        // HTML шаблон письма
+        $html = '
+        <!DOCTYPE html>
+        <html>
+        <head>
+            <meta charset="UTF-8">
+            <style>
+                body { font-family: Arial, sans-serif; line-height: 1.6; color: #333; }
+                .container { max-width: 600px; margin: 0 auto; padding: 20px; border: 1px solid #ddd; border-radius: 10px; }
+                .button { display: inline-block; padding: 12px 24px; background: #4CAF50; color: white; 
+                        text-decoration: none; border-radius: 5px; font-weight: bold; }
+                .footer { margin-top: 30px; padding-top: 20px; border-top: 1px solid #eee; 
+                        font-size: 12px; color: #777; }
+            </style>
+        </head>
+        <body>
+            <div class="container">
+                <h2>Восстановление пароля</h2>
+                <p>Здравствуйте!</p>
+                <p>Вы запросили восстановление пароля для вашего аккаунта в <strong>ФОТОТЕКА</strong>.</p>
+                <p>Для установки нового пароля нажмите кнопку ниже:</p>
+                
+                <p style="text-align: center; margin: 30px 0;">
+                    <a href="' . $resetLink . '" class="button">Восстановить пароль</a>
+                </p>
+                
+                <p>Или скопируйте ссылку в браузер:</p>
+                <p style="word-break: break-all; background: #f5f5f5; padding: 10px; border-radius: 5px; font-size: 12px;">
+                    ' . $resetLink . '
+                </p>
+                
+                <p><strong>Ссылка действительна 1 час.</strong></p>
+                <p>Если вы не запрашивали восстановление, проигнорируйте это письмо.</p>
+                
+                <div class="footer">
+                    <p>Это письмо отправлено автоматически. Пожалуйста, не отвечайте на него.</p>
+                    <p>© ' . date('Y') . ' ФОТОТЕКА. Все права защищены.</p>
+                </div>
+            </div>
+        </body>
+        </html>';
+        
+        // Отправляем через PHPMailer
+        return sendEmail($email, 'Восстановление пароля в PhotoGallery', $html);
     }
-
-
 
 
 
