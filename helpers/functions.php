@@ -683,7 +683,7 @@
                 <p>Вы запросили восстановление пароля для вашего аккаунта в <strong>ФОТОТЕКА</strong>.</p>
                 <p>Для установки нового пароля нажмите кнопку ниже:</p>
                 
-                <p style="text-align: center; margin: 30px 0;">
+                <p style="text-align: center; margin: 30px 0; color: #c9cf1bff;">
                     <a href="' . $resetLink . '" class="button">Восстановить пароль</a>
                 </p>
                 
