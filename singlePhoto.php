@@ -47,7 +47,7 @@ $comments = getCommentsWithAuthors($photosId);
 $count_comments = count($comments);
 
  
-if(isset($_POST['submit'])) {
+if(isset($_POST['submit_comment'])) {
     // Проверяем, что комментарий не пустой
     if(!isset($_POST['comment_text']) || trim($_POST['comment_text']) === '') {
         $_SESSION['errors'][] = "Текст комментария не может быть пустым.";
@@ -71,6 +71,19 @@ if(isset($_POST['submit'])) {
 // смотрим количество лайков на конкретном фото
 $totalLikes = R::count('likes', 'photo_id = ?', [$photosId]);
  
+// echo "id автора " . $autorId . "<br>";
+// echo "id посетителя " . $userId . "<br>";
+
+
+// удаление фото
+if(isset($_POST['delete-photo']))  {
+    // echo "нажата кнопка удалить фотографию";
+    p($_POST);
+
+    deletePhotoFromGallery($photosId, $autorId);
+
+}
+
 
 require('./templates/head.tpl');
 require('./templates/errors.tpl');

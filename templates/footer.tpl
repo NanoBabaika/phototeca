@@ -1,6 +1,8 @@
         </div>
     </main>
 
+    <?php $totalUsers = R::count('users');?>
+
     <footer class="footer">
         <div class="container">
             <div class="footer-content">
@@ -14,7 +16,7 @@
                     <a href="#" class="footer-link">Контакты</a>
                 </div>
                 <div class="footer-stats">
-                    <p>📊 Пользователей: <span id="user-count"><?php echo $user_count ?? '0'; ?></span></p>
+                    <p>📊 Пользователей: <span id="user-count"><?php echo $totalUsers ?? '0'; ?></span></p>
                 </div>
             </div>
         </div>

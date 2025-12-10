@@ -1,34 +1,35 @@
 <?php 
 
-    session_start();
-    if (!isset($_SESSION['user_id'])) {
-        header('Location: login.php');
-        exit();
-    }
+session_start();
+if (!isset($_SESSION['user_id'])) {
+    header('Location: login.php');
+    exit();
+}
 
-    require('./helpers/functions.php');
-    require('./config/database.php');
+require('./helpers/functions.php');
+require('./config/database.php');
 
-    // Получить данные текущего пользователя
-    $user = R::load('users', $_SESSION['user_id']);
+// Получить данные текущего пользователя
+$user = R::load('users', $_SESSION['user_id']);
 
-    //  Получили массив с пользователями 
-    $users = showUserList($user->id);
-    
-    
-    require('./templates/head.tpl');
-    require('./templates/errors.tpl');
+// Получаем параметры поиска из GET
+$searchType = $_GET['search_type'] ?? 'both'; // По умолчанию поиск и по имени, и по городу
+$searchQuery = $_GET['search_query'] ?? '';
+$page = $_GET['page'] ?? 1;
 
-    // Если заходим первый раз на страницу устанавливаем как $_GET['page'] = 1;
-    if(!isset($_GET['page'])) {
-        $_GET['page'] = 1;
-    } 
- 
-    // преобразуем данные по фото для пагинации
-    $paginationData = pagination($users, $_GET['page']);  
+// Получаем пользователей с учетом поиска
+$users = showUserList($user->id, $searchType, $searchQuery);
 
- 
+// Отладка (убери после проверки)
+// p($users);
+// echo "Поиск: $searchQuery, Тип: $searchType, Найдено: " . count($users);
 
-    require('./templates/userList.tpl');
-    require('./templates/pagination.tpl');
-    require('./templates/footer.tpl');
+require('./templates/head.tpl');
+require('./templates/errors.tpl');
+
+// преобразуем данные по фото для пагинации
+$paginationData = pagination($users, $page);  
+
+require('./templates/userList.tpl');
+require('./templates/pagination_var2.tpl');
+require('./templates/footer.tpl');

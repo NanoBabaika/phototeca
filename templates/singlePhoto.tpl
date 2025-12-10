@@ -58,7 +58,7 @@
         </div>
 
         <!-- Форма добавления комментария -->
-        <form class="comment-form" method="POST" action="singlePhoto.php?photo_id=<?= $photosId ?>">
+        <form id="single_photo_form" class="comment-form" method="POST" action="singlePhoto.php?photo_id=<?= $photosId ?>">
             <div class="form-group">
                 <textarea name="comment_text" 
                           class="comment-textarea" 
@@ -66,11 +66,42 @@
                           rows="4"
                           ></textarea>
             </div>
-            <button name ="submit" type="submit" class="submit-comment-btn">
-                💬 Добавить комментарий
-            </button>
+            <div class="form_photo_btns">
+                <button name ="submit_comment" type="submit" class="submit-comment-btn">
+                    💬 Добавить комментарий
+                </button>
+
+                <!-- Проверяем владелец ли фото зашел на страницу -->
+                <?php if($userId === $autorId): ?>
+                    <!-- через js не приходит имя кнопки поэтому отправляем скрытый атрибут -->
+                 <input type="hidden" name="delete-photo" value="1"> 
+                 <button id = "delete_photo" name ="delete-photo" type="submit" class="btn-danger">
+                    Удалить фотографию
+                </button>
+                <?php endif; ?>
+
+            </div>
+
         </form>
     </div>
+    <script>  
+        const deleteBtn = document.getElementById('delete_photo');
+        const singlePhotoForm = document.getElementById('single_photo_form');
+
+        deleteBtn.addEventListener('click', function(e) {
+            // Останавливаем стандартное поведение формы
+            e.preventDefault();
+                
+            // Спрашиваем подтверждение
+            const isConfirmed = confirm('Вы уверены, что хотите удалить эту фотографию? Это действие необратимо!');
+                
+            if (isConfirmed) {
+                // Если подтвердили - отправляем форму
+                singlePhotoForm.submit();
+            }
+        });
+        
+    </script>
 
     <script>
         let totalLikes = <?php echo json_encode($totalLikes); ?>;

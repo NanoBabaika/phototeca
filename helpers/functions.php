@@ -363,9 +363,9 @@
     }
 
 
-    function showUserList($id) {
-
-        $users = R::getAll("
+    function showUserList($excludeId, $searchType = null, $searchTerm = null) {
+                
+        $sql = "
             SELECT 
                 u.id,
                 u.name,
@@ -375,12 +375,30 @@
             FROM users u
             LEFT JOIN photos p ON p.user_id = u.id
             WHERE u.id != ?
-            GROUP BY u.id
-            ORDER BY photos_count DESC
-        ", [$id]); 
+        ";
         
-
-        // Эти данные мне нужно вернуть в виде массива пользователи. 
+        $params = [$excludeId];
+        
+        // Добавляем условия поиска
+        if ($searchTerm && $searchType) {
+            if ($searchType === 'name') {
+                $sql .= " AND u.name LIKE ? ";
+                $params[] = '%' . $searchTerm . '%';
+            } elseif ($searchType === 'city') {
+                $sql .= " AND u.city LIKE ? ";
+                $params[] = '%' . $searchTerm . '%';
+            } elseif ($searchType === 'both') {
+                // Поиск по имени ИЛИ городу
+                $sql .= " AND (u.name LIKE ? OR u.city LIKE ?) ";
+                $params[] = '%' . $searchTerm . '%';
+                $params[] = '%' . $searchTerm . '%';
+            }
+        }
+        
+        $sql .= " GROUP BY u.id ORDER BY photos_count DESC";
+        
+        $users = R::getAll($sql, $params);
+        
         return $users;
     }
 
@@ -708,7 +726,39 @@
     }
 
 
+    // Удаление фото из галлереи
+    function deletePhotoFromGallery($photos_id, $autorId) {
+            try {
+            // нашли фото по id
+            $photo = R::findOne('photos', 'id = ?', [$photos_id]);
+            
+            if (!$photo) {
+                return ['status' => 'error', 'message' => 'Фотография не найдена'];
+            }
+            
+            $fileName = $photo['filename'];
 
+            // нашли путь к файлу!!! 
+            $filePath = "./uploads/photos/". $autorId  . '/' . $fileName;
+            p($filePath);
+            // // удаляем из БД 
+            R::trash($photo);
+            
+            // Удаляем сам файл с сервера
+            if (file_exists($filePath)) {
+                unlink($filePath);
+            }
+            
+            // сигнализиуем о успехе и перенаправляем пользователя
+            $_SESSION['success'] = 'Фотография успешно удалена';
+            header('Location: gallery.php');
+
+        } catch (Exception $e) {
+            error_log("Ошибка при удалении фото: " . $e->getMessage());
+            $_SESSION['errors'][] = 'Произошла ошибка при удалении';
+        }
+
+    }
 
 
 
