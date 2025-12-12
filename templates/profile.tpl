@@ -45,19 +45,19 @@
                 <h2 class="section-title">📈 Статистика фото</h2>
                 <div class="stats-grid">
                     <div class="stat-item">
-                        <div class="stat-number"><?= $photos_count ?? 0 ?></div>
+                        <div class="stat-number"><?= $stats[0] ?? 0 ?></div>
                         <div class="stat-label">Всего фото</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number"><?= $photos_today ?? 0 ?></div>
+                        <div class="stat-number"><?= $stats[2] ?? 0 ?></div>
                         <div class="stat-label">Загружено сегодня</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number"><?= $total_size ?? 0 ?> МБ</div>
+                        <div class="stat-number"><?= $filesSize['readable'] ?? 0 ?></div>
                         <div class="stat-label">Общий размер</div>
                     </div>
                     <div class="stat-item">
-                        <div class="stat-number"><?= $last_upload ?? '—' ?></div>
+                        <div class="stat-number"><?= $stats[1] ?? '—' ?></div>
                         <div class="stat-label">Последняя загрузка</div>
                     </div>
                 </div>
@@ -74,17 +74,17 @@
             </div>
 
             <!-- Быстрые действия -->
-            <div class="quick-actions mt-20">
+            <!-- <div class="quick-actions mt-20">
                 <h3 class="actions-title">🚀 Быстрые действия</h3>
                 <div class="action-buttons">
                     <button onclick="showPopular()" class="btn btn-secondary">🔥 Популярные</button>
                     <button onclick="exportData()" class="btn btn-secondary">📁 Экспорт данных</button>
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
 
-    <script>
+    <!-- <script>
         function showPopular() {
             alert('Система популярности постов будет реализована позже.');
             // Здесь будет логика экспорта данных пользователя
@@ -95,6 +95,6 @@
             alert('Функция экспорта данных будет реализована позже!');
             // Здесь будет логика экспорта данных пользователя
         }
-    </script>
+    </script> -->
 </body>
 </html>
