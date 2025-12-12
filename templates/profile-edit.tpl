@@ -70,7 +70,7 @@
                 <h4>Удаление профиля</h4>
                 <p>После удаления профиля все ваши данные будут безвозвратно удалены. Это действие нельзя отменить.</p>
             </div>
-            <button type="button" class="btn-danger" id="delete-profile-btn">
+            <button id="delete-profile-btn" type="button" class="btn-danger">
                 Удалить профиль
             </button>
         </div>
@@ -78,11 +78,50 @@
 
 </div>
 
-<!-- <script>
-document.getElementById('delete-profile-btn').addEventListener('click', function() {
-    if (confirm('Вы уверены, что хотите удалить свой профиль? Это действие нельзя отменить.(не реализован)')) {
-        // Здесь будет запрос на удаление профиля
-        window.location.href = 'delete-profile.php';
-    }
-});
-</script> -->
+
+<script>
+    let userId = <?php echo json_encode($id); ?>;
+    console.log('пользователь которого нужно удалить', userId);
+
+    const btn_profile_delete = document.getElementById('delete-profile-btn');
+    console.log(btn_profile_delete);
+
+    btn_profile_delete.addEventListener('click', function(e) {
+        // Останавливаем стандартное поведение формы
+        e.preventDefault();
+            
+        // Спрашиваем подтверждение
+        const isConfirmed = confirm('Вы уверены, что хотите удалить профиль? Нам будет Вас не хватать :(');
+            
+        if (isConfirmed) {
+            console.log("отправка формы!");
+
+            fetch('./api/delete_profile.php', {
+                method: 'POST', 
+                headers: {
+                    'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                // Передаем параметр, который скажет PHP, какую функцию выполнять
+                body: 'user_id=' + encodeURIComponent(userId) // <- убрана точка с запятой
+            })
+            .then(response => response.text()) 
+            .then(data => {
+                // Обрабатываем ответ от сервера и выводим его
+                console.log('Ответ от сервера:', data);
+                // Предполагаем, что при успешном удалении сервер возвращает 'success'
+                if (data.trim() === 'success') {
+                    alert('Профиль успешно удален');
+                    window.location.href = 'login.php';  
+                    } else {
+                    alert('Ошибка: ' + data);
+                }
+            })
+            .catch(error => {
+                console.error('Произошла ошибка:', error);
+                alert('Произошла ошибка при выполнении запроса.');
+            });
+        }
+    });
+</script>
+
+ 
