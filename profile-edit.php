@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_id'])) {
     header('Location: login.php');
     exit();
 }
-
+echo "logged user id " . $_SESSION['user_id'];
 
 require('./helpers/functions.php');
 require './helpers/resize-and-crop.php';
@@ -16,6 +16,8 @@ require('./config/database.php');
 
 // Получить данные текущего пользователя
 $user = R::load('users', $_SESSION['user_id']);
+$id = $user->id;
+echo $id;
 
 
 if(isset($_POST['edit-profile'])) {

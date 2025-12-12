@@ -139,7 +139,7 @@
             // Создаем директорию рекурсивно (true в третьем аргументе), 
             // и устанавливаем права доступа 0777 (восьмеричное представление)
             if (mkdir($upload_dir, 0777, true)) {
-                $_SESSION['success'][] = "Директория для пользователя $userId успешно создана с правами 777.";
+                $_SESSION['success'][] = "Директория для пользователя $userId успешно создана.";
             } else {
                 $_SESSION['errors'][] = "Ошибка: Не удалось создать директорию для пользователя $userId.";
                 return;
@@ -219,8 +219,7 @@
     // функции которые относятся к профилю
 
     function editProfile($id, $data, $password_change_requested) {
-        echo "Нажата кнопка редактировать профиль";
-
+ 
         $user = R::findOne('users', ' id = ? ', [$id]);
         
         // Обязательные поля!
@@ -241,11 +240,10 @@
         if($password_change_requested && isset($data['new_password']) && $data['new_password'] !== '') {
             $password = password_hash(trim($data['new_password']), PASSWORD_DEFAULT);
             $user->password = $password;
-            echo "Пароль обновлен!";
         }
         $id = R::store($user);
 
-        echo "Данные пользователя успешно обновлены,  ID: " . $id;
+ 
 
         return $id; 
     }
@@ -492,12 +490,12 @@
             // 3. Сохранение "боба" в базе данных
             // R::store() вернет ID новой записи
             $like = R::store($like);
-            echo "Лайк успешно добавлен!";
+ 
         } else {
             // тут должен быть код для удаления записи
             $like = R::findOne('likes', 'photo_id = ? AND user_id = ?', [$photosId, $userId]);
             R::trash($like);
-            echo "Лайк успешно удален!";
+
         }
 }
 
@@ -511,10 +509,10 @@
         $likesCount = R::count('likes', 'photo_id = ? AND user_id = ?', [$userId, $photoId]);
 
         if($likesCount > 0) {
-            echo  "Пользователь уже поставил лайк этой фотографии.";
+ 
             return true;
         } else {
-            echo  "Лайка пока нет.";
+
             return false;
         }
     }
