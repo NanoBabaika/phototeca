@@ -21,23 +21,7 @@
         echo "</pre>";
         die();
     }
-
-    function userInfo($user) {
-        if(isset($user)) {
-            echo "<pre>";
-            echo "Пользователь залогинен";
-            echo "<pre/>";
-            echo "<pre>";
-            echo "id пользователя: " . $user->id;
-            echo "</pre>";
-            echo "<pre>";
-            echo  "Почта пользователя: " . $user->email;
-            echo "<pre>";
-        } else {
-            echo "Пользователь не залогинен.";
-        }
-    }
-
+ 
     // напишем функцию для регистрации пользователя
     function register($name, $email, $password) {
         // Проверяем есть ли пользователь с такой почтой
