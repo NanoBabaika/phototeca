@@ -7,6 +7,10 @@
      <link rel="stylesheet" href="/static/main.css">
 </head>
 <body>
+    <!-- require('./templates/clue_for_login.tpl'); -->
+
+    <?php require('./templates/clue_for_login.tpl');?>
+ 
     <div class="login-container">
         <div class="logo">
             <h1>📸 Фототека</h1>
@@ -35,6 +39,79 @@
 
         </div>
     </div>
+
+
+
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    // Функционал копирования
+    const copyButtons = document.querySelectorAll('.copy-btn');
+    
+    copyButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            const credentialValue = this.closest('.credential-value');
+            const textToCopy = credentialValue.getAttribute('data-text');
+            
+            // Копируем в буфер обмена
+            navigator.clipboard.writeText(textToCopy).then(() => {
+                // Показываем состояние "скопировано"
+                this.classList.add('copied');
+                
+                // Возвращаем обратно через 2 секунды
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                }, 2000);
+            }).catch(err => {
+                console.error('Ошибка копирования: ', err);
+                // Fallback для старых браузеров
+                const textArea = document.createElement('textarea');
+                textArea.value = textToCopy;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                this.classList.add('copied');
+                setTimeout(() => {
+                    this.classList.remove('copied');
+                }, 2000);
+            });
+        });
+    });
+    
+    // Функционал закрытия подсказки
+    const closeButton = document.querySelector('.hint-close');
+    if (closeButton) {
+        closeButton.addEventListener('click', function() {
+            const hintBlock = this.closest('.test-user-hint');
+            hintBlock.style.opacity = '0';
+            hintBlock.style.transform = 'translateY(-10px)';
+            hintBlock.style.height = '0';
+            hintBlock.style.margin = '0';
+            hintBlock.style.padding = '0';
+            hintBlock.style.overflow = 'hidden';
+            
+            setTimeout(() => {
+                hintBlock.style.display = 'none';
+            }, 300);
+            
+            // Сохраняем в localStorage, чтобы не показывать снова
+            if (typeof(Storage) !== 'undefined') {
+                localStorage.setItem('testHintClosed', 'true');
+            }
+        });
+    }
+    
+    // Проверяем, не закрывал ли пользователь подсказку ранее
+    if (typeof(Storage) !== 'undefined' && localStorage.getItem('testHintClosed') === 'true') {
+        const hintBlock = document.querySelector('.test-user-hint');
+        if (hintBlock) {
+            hintBlock.style.display = 'none';
+        }
+    }
+});
+</script>
 
 </body>
 </html>
