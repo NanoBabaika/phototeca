@@ -760,8 +760,97 @@
 
     }
 
+    // показ статистики пользователя
+    function userStats($userId) {
+        $stats = [];
 
+        // возвращаем счетчик фото пользователя
+        $totalPhotosCount = R::count('photos', 'user_id = ?', [$userId]);
+        $stats[] = $totalPhotosCount;
 
+        // проверяем была ли загрузка сегодня
+        $todayPhotosCount = R::count('photos', 'user_id = ? AND DATE(created_at) = CURDATE()', [$userId]);
+
+        // Дата последней загрузки
+        $lastPhotoData = R::getCell('SELECT MAX(created_at) FROM photos WHERE user_id = ?', [$userId]);
+        if ($lastPhotoData) {
+            $lastUploadDate = date('d.m.Y', strtotime($lastPhotoData));
+        } else {
+            $lastUploadDate = 'Нет фото';
+            $lastUploadTime = '';
+        }
+
+        $stats[] = $lastUploadDate;    
+        $stats[] = $todayPhotosCount;
+
+        return $stats;
+
+    }
+
+    // статистика по файлам пользователя
+/**
+ * Получить общий размер фотографий пользователя
+ * @param int $userId - ID пользователя
+ * @return array - Массив с размерами в разных форматах
+ */
+function getUserPhotosSize($userId) {
+    // Путь к папке пользователя
+    $userDir = "./uploads/photos/" . $userId . "/";
+    
+    // Проверяем, существует ли папка
+    if (!is_dir($userDir)) {
+        return [
+            'bytes' => 0,
+            'readable' => '0 Б',
+            'files_count' => 0,
+            'folder_exists' => false
+        ];
+    }
+    
+    // Открываем папку
+    $files = scandir($userDir);
+    $totalSize = 0;
+    $fileCount = 0;
+    
+    // Проходим по всем файлам в папке
+    foreach ($files as $file) {
+        // Пропускаем специальные записи . и ..
+        if ($file == '.' || $file == '..') {
+            continue;
+        }
+        
+        $filePath = $userDir . $file;
+        
+        // Проверяем, что это файл (а не папка)
+        if (is_file($filePath)) {
+            // Получаем размер файла в байтах
+            $fileSize = filesize($filePath);
+            $totalSize += $fileSize;
+            $fileCount++;
+        }
+    }
+    
+    // Функция для форматирования размера
+    function formatSize($bytes) {
+        $units = ['Б', 'КБ', 'МБ', 'ГБ', 'ТБ'];
+        $i = 0;
+        
+        while ($bytes >= 1024 && $i < count($units) - 1) {
+            $bytes /= 1024;
+            $i++;
+        }
+        
+        // Округляем до 2 знаков после запятой
+        return round($bytes, 2) . ' ' . $units[$i];
+    }
+    
+    return [
+        'bytes' => $totalSize,
+        'readable' => formatSize($totalSize),
+        'files_count' => $fileCount,
+        'folder_exists' => true
+    ];
+}
 
 
 
