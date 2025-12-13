@@ -2476,6 +2476,155 @@ input[type="file"]::file-selector-button:hover {
     animation-delay: 2s;
 }
 
+/* Стили для toggle-функционала */
+.hint-toggle {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.1), rgba(139, 92, 246, 0.1));
+    border: none;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    color: #4A90E2;
+    font-size: 1.5rem;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.hint-toggle:hover {
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.2), rgba(139, 92, 246, 0.2));
+    transform: scale(1.1);
+}
+
+.hint-toggle:active {
+    transform: scale(0.95);
+}
+
+/* Свернутое состояние подсказки */
+.hint-collapsed {
+    display: none;
+    background: linear-gradient(135deg, rgba(74, 144, 226, 0.05), rgba(139, 92, 246, 0.05));
+    border-radius: 12px;
+    padding: 1rem 1.5rem;
+    margin-top: 1rem;
+    border: 1px solid rgba(74, 144, 226, 0.1);
+    animation: slideUp 0.3s ease-out;
+}
+
+@keyframes slideUp {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.hint-collapsed.show {
+    display: block;
+}
+
+.collapsed-content {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.collapsed-icon {
+    font-size: 1.25rem;
+    animation: gentlePulse 3s infinite ease-in-out;
+}
+
+.collapsed-text {
+    color: #555;
+    font-weight: 500;
+    flex-grow: 1;
+}
+
+.expand-btn {
+    background: linear-gradient(135deg, #4A90E2, #8B5CF6);
+    color: white;
+    border: none;
+    padding: 0.5rem 1rem;
+    border-radius: 8px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.expand-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(139, 92, 246, 0.3);
+}
+
+.expand-icon {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.expand-text {
+    white-space: nowrap;
+}
+
+/* Анимации для переключения */
+.hint-content {
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.hint-content.hidden {
+    display: none;
+}
+
+.test-user-hint.collapsed .hint-content {
+    display: none;
+}
+
+.test-user-hint.collapsed .hint-collapsed {
+    display: block;
+}
+
+/* Плавное появление/скрытие */
+.hint-content, .hint-collapsed {
+    animation: fadeIn 0.3s ease-out;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Адаптивность для свернутого состояния */
+@media (max-width: 480px) {
+    .collapsed-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.75rem;
+    }
+    
+    .expand-btn {
+        align-self: stretch;
+        justify-content: center;
+    }
+    
+    .hint-toggle {
+        width: 28px;
+        height: 28px;
+        font-size: 1.3rem;
+    }
+}
+
+
 @keyframes colorShift {
     0% { opacity: 0.7; }
     100% { opacity: 1; }

@@ -45,7 +45,54 @@
 
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // Функционал копирования
+    const testUserHint = document.getElementById('testUserHint');
+    const hintToggle = document.getElementById('hintToggle');
+    const expandHint = document.getElementById('expandHint');
+    const hintContent = document.getElementById('hintContent');
+    const hintCollapsed = document.getElementById('hintCollapsed');
+    const toggleIcon = hintToggle.querySelector('.toggle-icon');
+    
+    // Проверяем сохраненное состояние
+    const isHintCollapsed = localStorage.getItem('testHintCollapsed') === 'true';
+    
+    // Устанавливаем начальное состояние
+    if (isHintCollapsed) {
+        collapseHint();
+    } else {
+        expandHintFunc();
+    }
+    
+    // Функция сворачивания подсказки
+    function collapseHint() {
+        testUserHint.classList.add('collapsed');
+        toggleIcon.textContent = '+';
+        hintToggle.setAttribute('aria-label', 'Развернуть подсказку');
+        hintToggle.title = 'Развернуть подсказку';
+        localStorage.setItem('testHintCollapsed', 'true');
+    }
+    
+    // Функция разворачивания подсказки
+    function expandHintFunc() {
+        testUserHint.classList.remove('collapsed');
+        toggleIcon.textContent = '−';
+        hintToggle.setAttribute('aria-label', 'Свернуть подсказку');
+        hintToggle.title = 'Свернуть подсказку';
+        localStorage.setItem('testHintCollapsed', 'false');
+    }
+    
+    // Переключение по клику на кнопку в заголовке
+    hintToggle.addEventListener('click', function() {
+        if (testUserHint.classList.contains('collapsed')) {
+            expandHintFunc();
+        } else {
+            collapseHint();
+        }
+    });
+    
+    // Разворачивание по клику на кнопку в свернутом блоке
+    expandHint.addEventListener('click', expandHintFunc);
+    
+    // Функционал копирования (оставляем без изменений)
     const copyButtons = document.querySelectorAll('.copy-btn');
     
     copyButtons.forEach(button => {
@@ -53,18 +100,14 @@ document.addEventListener('DOMContentLoaded', function() {
             const credentialValue = this.closest('.credential-value');
             const textToCopy = credentialValue.getAttribute('data-text');
             
-            // Копируем в буфер обмена
             navigator.clipboard.writeText(textToCopy).then(() => {
-                // Показываем состояние "скопировано"
                 this.classList.add('copied');
                 
-                // Возвращаем обратно через 2 секунды
                 setTimeout(() => {
                     this.classList.remove('copied');
                 }, 2000);
             }).catch(err => {
                 console.error('Ошибка копирования: ', err);
-                // Fallback для старых браузеров
                 const textArea = document.createElement('textarea');
                 textArea.value = textToCopy;
                 document.body.appendChild(textArea);
@@ -80,36 +123,15 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
     
-    // Функционал закрытия подсказки
-    const closeButton = document.querySelector('.hint-close');
-    if (closeButton) {
-        closeButton.addEventListener('click', function() {
-            const hintBlock = this.closest('.test-user-hint');
-            hintBlock.style.opacity = '0';
-            hintBlock.style.transform = 'translateY(-10px)';
-            hintBlock.style.height = '0';
-            hintBlock.style.margin = '0';
-            hintBlock.style.padding = '0';
-            hintBlock.style.overflow = 'hidden';
-            
-            setTimeout(() => {
-                hintBlock.style.display = 'none';
-            }, 300);
-            
-            // Сохраняем в localStorage, чтобы не показывать снова
-            if (typeof(Storage) !== 'undefined') {
-                localStorage.setItem('testHintClosed', 'true');
-            }
-        });
-    }
-    
-    // Проверяем, не закрывал ли пользователь подсказку ранее
-    if (typeof(Storage) !== 'undefined' && localStorage.getItem('testHintClosed') === 'true') {
-        const hintBlock = document.querySelector('.test-user-hint');
-        if (hintBlock) {
-            hintBlock.style.display = 'none';
+    // Дополнительно: закрытие по клику вне блока (опционально)
+    document.addEventListener('click', function(event) {
+        if (!testUserHint.contains(event.target) && 
+            !testUserHint.classList.contains('collapsed') &&
+            event.target !== hintToggle) {
+            // Автоматически сворачиваем при клике вне блока
+            // collapseHint();
         }
-    }
+    });
 });
 </script>
 

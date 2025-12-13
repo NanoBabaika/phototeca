@@ -1,11 +1,13 @@
-<div class="test-user-hint">
+<div class="test-user-hint" id="testUserHint">
     <div class="hint-header">
         <div class="hint-icon">🔍</div>
         <h3 class="hint-title">Хотите просто посмотреть?</h3>
-        <button class="hint-close" aria-label="Скрыть подсказку">×</button>
+        <button class="hint-toggle" id="hintToggle" aria-label="Свернуть подсказку">
+            <span class="toggle-icon">−</span>
+        </button>
     </div>
     
-    <div class="hint-content">
+    <div class="hint-content" id="hintContent">
         <p class="hint-text">
             Регистрироваться не обязательно. Для тестирования создан пользователь:
         </p>
@@ -49,6 +51,17 @@
                 <span class="security-icon">🔒</span>
                 <span>Это тестовый аккаунт, данные защищены и изолированы</span>
             </div>
+        </div>
+    </div>
+    
+    <div class="hint-collapsed" id="hintCollapsed">
+        <div class="collapsed-content">
+            <span class="collapsed-icon">🔍</span>
+            <span class="collapsed-text">Тестовый пользователь доступен</span>
+            <button class="expand-btn" id="expandHint">
+                <span class="expand-icon">+</span>
+                <span class="expand-text">Развернуть</span>
+            </button>
         </div>
     </div>
     
