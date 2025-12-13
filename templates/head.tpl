@@ -17,10 +17,15 @@
         
         <div class="mobile-user-info">
             <div class="mobile-user-avatar">
-                👤
+                <?php if (!empty($user->avatar)) : ?>
+                    <img class="mobile_avatar__img" src="./uploads/avatars/<?= $user->avatar ?>" alt="Аватарка" />
+                <?php else : ?>
+                    <div class="mobile-user-avatar">👤</div>                
+                <?php endif; ?>
             </div>
-            <div class="mobile-user-name">Гость</div>
-            <div class="mobile-user-email">Войдите в аккаунт</div>
+            <div class="mobile-user-name">
+                <?= htmlspecialchars($user['name'] ?? 'Пользователь') ?>
+            </div>
         </div>
         
         <ul class="mobile-nav">
