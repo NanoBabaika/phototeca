@@ -80,77 +80,86 @@
 
 
     function loadPhoto($user, $file) {
-               
         $userId = $user->id;
-        // Конечная папка для загрузки
         $upload_dir = "./uploads/photos/" . $userId . "/"; 
-        
-        // строка с временным хранением файла
         $temp_file = $_FILES["file"]["tmp_name"];
-
+        
+        // Проверка MIME-типа
         $mime_type = mime_content_type($temp_file);
-
-        if ($mime_type !== 'image/jpeg' && $mime_type !== 'image/png' && $mime_type !== 'image/jpg') {
-            $_SESSION['errors'][] = "Недопустимый тип файла. Допускаются только JPEG и PNG.";
-            return;
+        $allowed_types = ['image/jpeg', 'image/png', 'image/jpg', 'image/gif', 'image/webp'];
+        
+        if (!in_array($mime_type, $allowed_types)) {
+            $_SESSION['errors'][] = "Недопустимый тип файла. Допускаются: JPEG, PNG, GIF, WebP.";
+            return false;
         }
-
-        // Лимит в 5 МБ ОГРАНИЧЕНИЕ!
+        
+        // Лимит размера (5 МБ)
         $max_file_size = 5242880; 
         $current_file_size = $_FILES["file"]["size"];
         
         if($current_file_size > $max_file_size) {
             $_SESSION['errors'][] = "Ошибка: Размер файла превышает допустимый лимит (5 МБ).";
-            return; 
+            return false; 
         }
- 
-
-        // Получаем расширение оригинального файла
+        
+        // Получаем данные об оригинальном файле
         $original_file_name = basename($_FILES["file"]["name"]);
         $file_info = pathinfo($original_file_name);
-        $extension = $file_info['extension'];
-
-        // Генерируем уникальное имя файла
-        // Используем uniqid() для генерации уникальной строки
+        $extension = strtolower($file_info['extension']);
+        
+        // Генерируем уникальное имя
         $new_file_name = uniqid() . '.' . $extension;
-
-        // Обновляем целевой путь загрузки на новое имя
-        // Теперь $target_file содержит безопасный путь и имя
-        $target_file = $upload_dir . $new_file_name;
-
-        // Создаем директорию, если она не существует
+        
+        // Создаем директории
+        $thumbs_dir = $upload_dir . "thumbs/";
+        
         if (!is_dir($upload_dir)) {
-            // Создаем директорию рекурсивно (true в третьем аргументе), 
-            // и устанавливаем права доступа 0777 (восьмеричное представление)
-            if (mkdir($upload_dir, 0777, true)) {
-                $_SESSION['success'][] = "Директория для пользователя $userId успешно создана.";
-            } else {
+            if (!mkdir($upload_dir, 0777, true)) {
                 $_SESSION['errors'][] = "Ошибка: Не удалось создать директорию для пользователя $userId.";
-                return;
+                return false;
             }
         }
-
         
-        // Перемещаем загруженный файл в целевую директорию
-        if (move_uploaded_file($temp_file, $target_file)) {
-            $_SESSION['success'][] = "Файл успешно загружен.";
-
-            // Возвращаем массив что бы передать в addPhotoInBD
-        return [
-            'user_id' => $userId,
-            'file_name' => $new_file_name, // Сгенерированное уникальное имя
-            'original_name' => $original_file_name, // <<< Вот оно
-            'file_path' => $target_file,
-            'mime_type' => $mime_type,
-            'file_size' => $current_file_size
-        ];
-
-        } else {
+        if (!is_dir($thumbs_dir)) {
+            if (!mkdir($thumbs_dir, 0777, true)) {
+                $_SESSION['errors'][] = "Ошибка: Не удалось создать директорию для миниатюр.";
+                return false;
+            }
+        }
+        
+        // Пути для сохранения
+        $original_path = $upload_dir . $new_file_name;
+        $thumb_path = $thumbs_dir . $new_file_name;
+        
+        // Сохраняем оригинал
+        if (!move_uploaded_file($temp_file, $original_path)) {
             $_SESSION['errors'][] = "Ошибка при загрузке файла.";
             return false;
         }
+        
+        // Создаем миниатюру (300x300)
+        require_once 'resize-and-crop.php'; // Подключаем твою функцию
+        
+        $thumb_created = resize_and_crop($original_path, $thumb_path, 300, 300);
+        
+        if (!$thumb_created) {
+            $_SESSION['errors'][] = "Ошибка при создании миниатюры.";
+            // Оригинал всё равно сохраняем
+        } else {
+            $_SESSION['success'][] = "Фото и миниатюра успешно загружены.";
+        }
+        
+        // Возвращаем данные
+        return [
+            'user_id' => $userId,
+            'file_name' => $new_file_name,
+            'original_name' => $original_file_name,
+            'file_path' => $original_path,
+            'thumb_path' => $thumb_path,
+            'mime_type' => $mime_type,
+            'file_size' => $current_file_size
+        ];
     }
-
 
     
     function addPhotoInBD($file_details) {
@@ -284,7 +293,7 @@
         // Возможно будут еще проверки.
 
 
-        // Если перемещение файла прошло успешно выведем сообщение нет вернем ошибку
+        // Если перемещение файла прошло успешно выведем сообщение, нет вернем ошибку
         if (move_uploaded_file($temp_file, $fileAndPath)) {
             $_SESSION['success'][] = "Новый аватар успешно загружен(файл).";
         } else {
